@@ -1,6 +1,24 @@
 import './style.css';
 import projectFactory from './project';
 
+const { projects } = initialData;
+
+let { id } = initialData;
+
+// crating To-do's
+const todoFactory = (title, duedate, desc, note, priority, temp = 'Empty') => {
+  if (temp === 'Empty') {
+    id += 1;
+  } else {
+    id = temp;
+  }
+  return {
+    id, title, duedate, desc, note, priority,
+  };
+};
+
+const validateForm = (title, date, priority) => !(title === '' || date === '' || priority === 'Choose...');
+
 // Parses the form input
 const forminput = () => {
   const title = document.querySelector('#inputtitle').value.trim();
@@ -34,4 +52,9 @@ const btn = document.querySelector('#tasksubmit');
 
 btn.onclick = forminput;
 
-
+const addTaskToProject = (task, project) => {
+  const currentProject = projects.find((o) => o.name === project);
+  currentProject.list.push(task);
+  saveData(projects, id);
+  displayProjects(projects);
+};

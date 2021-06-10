@@ -1,5 +1,4 @@
 export default function projectFactory(name) {
-    const list = [];
-    return { name, list };
-  }
-  
+  const list = [];
+  return { name, list };
+}
