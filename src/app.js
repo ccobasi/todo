@@ -1,4 +1,4 @@
-import { modifyItem } from './index';
+import { modifyItem, deleteItem } from './index';
 
 const formatDate = (input) => {
   const options = {

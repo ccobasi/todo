@@ -1,6 +1,9 @@
 import './style.css';
 import projectFactory from './project';
 import { displayProjects } from './app';
+import { initialize, saveData } from './storagedata';
+
+const initialData = initialize([], 0);
 
 const { projects } = initialData;
 
@@ -19,6 +22,29 @@ const todoFactory = (title, duedate, desc, note, priority, temp = 'Empty') => {
 };
 
 const validateForm = (title, date, priority) => !(title === '' || date === '' || priority === 'Choose...');
+
+const projectNameList = (list) => {
+  projects.forEach((project) => list.push(project.name));
+  return list;
+};
+
+const setAlert = (alert, status) => {
+  alert.style.display = 'block';
+  if (status === 'success') {
+    alert.textContent = 'Task created succesfully!';
+    alert.setAttribute('class', 'box alert alert-success');
+  } else if (status === 'danger') {
+    alert.textContent = 'Title, Date, and Priority are required fields';
+    alert.setAttribute('class', 'box alert alert-danger');
+  }
+};
+
+const addTaskToProject = (task, project) => {
+  const currentProject = projects.find((o) => o.name === project);
+  currentProject.list.push(task);
+  saveData(projects, id);
+  displayProjects(projects);
+};
 
 // Parses the form input
 const forminput = () => {
@@ -53,11 +79,53 @@ const btn = document.querySelector('#tasksubmit');
 
 btn.onclick = forminput;
 
-const addTaskToProject = (task, project) => {
-  const currentProject = projects.find((o) => o.name === project);
-  currentProject.list.push(task);
+const deleteItem = (task, project) => {
+  const currentProject = projects.find((o) => o.name === project.name);
+  currentProject.list = currentProject.list.filter((x) => x.id !== task.id);
+
   saveData(projects, id);
   displayProjects(projects);
+};
+
+const saveModifiedData = (item, project) => {
+  const title = document.querySelector('#inputtitle').value.trim();
+  const date = document.querySelector('#inputdate').value;
+  const description = document.querySelector('#inputdescription').value.trim();
+  const note = document.querySelector('#inputnote').value;
+  const priority = document.querySelector('#inputpriority').value;
+  let projectname = document.querySelector('#inputproject').value.trim().toLowerCase();
+
+  projectname = (projectname === '') ? 'default' : projectname;
+
+  const currentId = item.id;
+
+  const oldProject = projects.find((o) => o.name === project.name);
+
+  const newProject = projects.find((o) => o.name === projectname);
+
+  const oldTask = oldProject.list.find((x) => x.id === currentId);
+
+  const newTask = todoFactory(title, date, description, note, priority, currentId);
+
+  // 1. New project
+  // 2. Existing and Same project
+  // 3. Existing but different projects
+
+  if (newProject == null) {
+    const newProject = projectFactory(projectname);
+    newProject.list.push(newTask);
+    projects.push(newProject);
+    deleteItem(oldTask, oldProject);
+  } else if (newProject.name === oldProject.name) {
+    newProject.list = newProject.list.map((x) => ((x.id === currentId) ? newTask : x));
+  } else {
+    newProject.list.push(newTask);
+    deleteItem(oldTask, oldProject);
+  }
+  saveData(projects, id);
+  displayProjects(projects);
+
+  return false;
 };
 
 const modifyItem = (item, project) => {
@@ -93,29 +161,5 @@ if (projects.length === 0) {
 } else {
   displayProjects(projects);
 }
-
-const deleteItem = (task, project) => {
-  const currentProject = projects.find((o) => o.name === project.name);
-  currentProject.list = currentProject.list.filter((x) => x.id !== task.id);
-
-  saveData(projects, id);
-  displayProjects(projects);
-};
-
-const projectNameList = (list) => {
-  projects.forEach((project) => list.push(project.name));
-  return list;
-};
-
-const setAlert = (alert, status) => {
-  alert.style.display = 'block';
-  if (status === 'success') {
-    alert.textContent = 'Task created succesfully!';
-    alert.setAttribute('class', 'box alert alert-success');
-  } else if (status === 'danger') {
-    alert.textContent = 'Title, Date, and Priority are required fields';
-    alert.setAttribute('class', 'box alert alert-danger');
-  }
-};
 
 export { modifyItem, deleteItem };
