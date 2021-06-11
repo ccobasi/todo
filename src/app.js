@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import { modifyItem, deleteItem } from './index';
 
 const formatDate = (input) => {
@@ -46,7 +47,7 @@ const displayProjects = (projects) => {
       const deleteBtn = document.createElement('button');
       modifyBtn.innerHTML = '<img src="https://img.icons8.com/fluent-systems-regular/15/000000/edit-property.png" />';
       modifyBtn.setAttribute('class', ' btn btn-primary');
-      deleteBtn.innerHTML = '<img src="https://img.icons8.com/material-sharp/15/000000/delete-forever.png" />';
+      deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
       deleteBtn.setAttribute('class', 'delete-btn btn btn-danger');
       listItem.setAttribute('class', 'listItem col-md-12');
 

@@ -1,7 +1,8 @@
 import './style.css';
 import projectFactory from './project';
+// eslint-disable-next-line import/no-cycle
 import { displayProjects } from './app';
-import { initialize, saveData } from './storagedata';
+import { initialize, saveData } from './storage';
 
 const initialData = initialize([], 0);
 
