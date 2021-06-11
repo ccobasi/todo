@@ -45,7 +45,7 @@ const displayProjects = (projects) => {
 
       const modifyBtn = document.createElement('button');
       const deleteBtn = document.createElement('button');
-      modifyBtn.innerHTML = '<img src="https://img.icons8.com/fluent-systems-regular/15/000000/edit-property.png" />';
+      modifyBtn.innerHTML = '&#xf044;';
       modifyBtn.setAttribute('class', ' btn btn-primary');
       deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
       deleteBtn.setAttribute('class', 'delete-btn btn btn-danger');
