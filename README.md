@@ -8,6 +8,8 @@
 - Todos are persisted using local storage
 
 ![Screenshot](./src/screenshot.png)
+![Screenshot](./src/screenshot1.png)
+
 
 ## Built With
 
