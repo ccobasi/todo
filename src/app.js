@@ -38,10 +38,16 @@ const displayProjects = (projects) => {
       const taskDate = document.createElement('span');
       taskDate.textContent = customDate;
 
+      const taskDescription = document.createElement('span');
+      taskDescription.textContent = item.description;
+
+      const taskNote = document.createElement('span');
+      taskNote.textContent = item.note;
+
       const taskPriority = document.createElement('span');
       taskPriority.textContent = item.priority;
 
-      listItem.append(taskTitle, taskDate, taskPriority);
+      listItem.append(taskTitle, taskDate, taskDescription, taskNote, taskPriority);
 
       const modifyBtn = document.createElement('button');
       const deleteBtn = document.createElement('button');

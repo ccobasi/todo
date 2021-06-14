@@ -11,14 +11,14 @@ const { projects } = initialData;
 let { id } = initialData;
 
 // crating To-do's
-const todoFactory = (title, duedate, desc, note, priority, temp = 'Empty') => {
+const todoFactory = (title, duedate, description, note, priority, temp = 'Empty') => {
   if (temp === 'Empty') {
     id += 1;
   } else {
     id = temp;
   }
   return {
-    id, title, duedate, desc, note, priority,
+    id, title, duedate, description, note, priority,
   };
 };
 
