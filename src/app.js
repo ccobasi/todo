@@ -45,7 +45,7 @@ const displayProjects = (projects) => {
 
       const modifyBtn = document.createElement('button');
       const deleteBtn = document.createElement('button');
-      modifyBtn.innerHTML = '<i class="fas fa-pencil"></i>';
+      modifyBtn.innerHTML = '<i class="fa fa-wrench"></i>';
       modifyBtn.setAttribute('class', ' btn btn-primary');
       deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
       deleteBtn.setAttribute('class', 'delete-btn btn btn-danger');
